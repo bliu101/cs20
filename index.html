@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function loadDog() {
+            request = new XMLHttpRequest();
+            request.open("GET", "https://random.dog/woof.json", true);
+            request.onreadystatechange = function () {
+                print(request);
+            }
+            request.send();
+        }
+        function print() {
+            if (request.readyState == 4) {
+                var response = request.responseText;
+                dogpicURL = JSON.parse(request.responseText).url;
+                document.getElementById('dogpic').src = dogpicURL;
+            }
+        }
+        function newDog() {
+            response = fetch("https://random.dog/woof.json")
+            .then(response => response.json())
+            .then(result => document.getElementById("dogpic").src = result.url);
+        }
+    </script>
+</head>
+<body onload = "loadDog()" style= "text-align: center;">
+    <h1>Dog says hello!</h1>
+    <img id= "dogpic" src="" alt="Dog Picture" style="margin: 0px 100px; height: 500px"></img>
+    <br>
+    <div style="text-align: center;"> 
+        <button class="newDog" onclick="newDog()" style="display: inline-block;">Get new dog!</button>
+     </div>
+    <br>
+    <div style="padding: 0px 300px">
+        <div>I selected the random dog API. This API generates a random dog picture.</div>
+        <div>I found this API on: https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/</div>
+        <div>I used the url option</div>
+        <div>Two applications where this API would be helpful are if the developer wanted interesting image
+            placeholders and if the developer wanted to test how differently sized pictures would display on the page.
+        </div>
+    </div>  
+</body>
+</html>
